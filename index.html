@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Press the Key Game</title>
   <style>
     body {
+      background: linear-gradient(to right, #1e1e2f, #2c3e50);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      background: #121212;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
+      justify-content: center;
+      margin: 0;
     }
+
     #letter {
-      font-size: 100px;
-      margin: 30px 0;
+      font-size: 180px;
+      font-weight: bold;
+      margin: 40px;
+      transition: color 0.2s ease;
     }
+
     #feedback {
-      font-size: 24px;
-      margin: 10px;
+      font-size: 32px;
+      margin-bottom: 20px;
     }
+
     #score {
-      font-size: 20px;
-      margin-top: 20px;
+      font-size: 24px;
+      margin-bottom: 30px;
     }
+
     #startBtn {
-      background: #00e676;
+      padding: 12px 30px;
+      font-size: 20px;
+      background-color: #00e676;
+      color: black;
       border: none;
-      padding: 10px 20px;
-      font-size: 18px;
-      border-radius: 5px;
+      border-radius: 10px;
       cursor: pointer;
-      color: #000;
+      transition: background 0.3s ease;
+    }
+
+    #startBtn:hover {
+      background-color: #00c853;
     }
   </style>
 </head>
 <body>
-  <h1>⌨️ Press the Key!</h1>
+  <h1>🎯 Press the Key!</h1>
   <div id="letter">?</div>
   <div id="feedback">Press the key shown above!</div>
   <div id="score">Score: 0</div>
@@ -44,23 +58,29 @@
 
   <script>
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let currentLetter = "";
-    let score = 0;
-    let gameActive = false;
-
     const letterDiv = document.getElementById("letter");
     const feedbackDiv = document.getElementById("feedback");
     const scoreDiv = document.getElementById("score");
     const startBtn = document.getElementById("startBtn");
+
+    let currentLetter = "";
+    let score = 0;
+    let gameActive = false;
 
     function getRandomLetter() {
       const index = Math.floor(Math.random() * letters.length);
       return letters[index];
     }
 
+    function getRandomColor() {
+      const colors = ["#ff4081", "#00e5ff", "#ffd600", "#69f0ae", "#ff6d00", "#e040fb", "#76ff03", "#f44336"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
     function showNewLetter() {
       currentLetter = getRandomLetter();
       letterDiv.textContent = currentLetter;
+      letterDiv.style.color = getRandomColor();
     }
 
     document.addEventListener("keydown", (e) => {
